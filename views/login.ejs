@@ -1,20 +1,54 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login</title>
-</head>
-<body>
-  <h2>Login</h2>
-
-  <% if (error) { %>
-    <p style="color:red"><%= error %></p>
-  <% } %>
-
-  <form method="POST" action="/login">
-    <input name="email" placeholder="Email" required><br><br>
-    <input name="password" type="password" placeholder="Senha" required><br><br>
-    <button type="submit">Entrar</button>
-  </form>
-</body>
-</html>
+  <style>
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;      /* centraliza vertical */
+      justify-content:center;  /* centraliza horizontal */
+      font-family: Arial, Helvetica, sans-serif;
+      background:#0b1220;
+      color:#fff;
+      padding:24px;
+    }
+    .card{
+      width:min(420px, 92vw);
+      background:rgba(0,0,0,.45);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+      padding:24px;
+    }
+    h2{ margin:0 0 16px; }
+    .error{
+      background:rgba(229,9,20,.15);
+      border:1px solid rgba(229,9,20,.35);
+      color:#ffd6d8;
+      padding:10px;
+      border-radius:10px;
+      margin-bottom:12px;
+    }
+    label{ display:block; margin:12px 0 6px; color:#cbd5ff; font-size:14px; }
+    input{
+      width:100%;
+      padding:12px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.35);
+      color:#fff;
+      outline:none;
+      font-size:15px;
+    }
+    input:focus{ border-color: rgba(106,163,255,.9); }
+    button{
+      width:100%;
+      margin-top:16px;
+      padding:12px;
+      border:0;
+      border-radius:10px;
+      background:#3b82f6;
+      color:#fff;
