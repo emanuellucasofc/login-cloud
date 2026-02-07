@@ -6,10 +6,8 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// configuração das views
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
@@ -20,7 +18,6 @@ app.use(
   })
 );
 
-// usuário fake (apenas estudo)
 const user = {
   email: "admin@site.com",
   password: bcrypt.hashSync("123456", 10),
@@ -31,7 +28,9 @@ function auth(req, res, next) {
   res.redirect("/login");
 }
 
-app.get("/", (req, res) => res.redirect("/login"));
+app.get("/", (req, res) => {
+  res.redirect("/login");
+});
 
 app.get("/login", (req, res) => {
   res.render("login", { error: null });
@@ -40,11 +39,14 @@ app.get("/login", (req, res) => {
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
 
-  if (email !== user.email || !bcrypt.compareSync(password, user.password)) {
-    return res.render("login", { error: "Email ou senha inválidos" });
+  const okEmail = email === user.email;
+  const okPass = bcrypt.compareSync(password, user.password);
+
+  if (!okEmail || !okPass) {
+    return res.status(401).render("login", { error: "Email ou senha inválidos" });
   }
 
-  req.session.user = email;
+  req.session.user = { email };
   res.redirect("/dashboard");
 });
 
